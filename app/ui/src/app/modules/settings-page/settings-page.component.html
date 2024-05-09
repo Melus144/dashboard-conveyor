@@ -1,0 +1,32 @@
+  <div class="container">
+    <br>
+    <div class="row">
+      <div class="col">
+        <div class="card">
+          <div class="card-body">
+            <div class="setting1 col">
+              <b>¿Do you want to train the model?</b>
+              <br>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="checkToTrain" name="option1" value="something" [(ngModel)]="isActiveForTrain" >
+                <label class="form-check-label">Check if you want to train the model</label>
+              </div>
+            </div>
+            <div class="setting2 col">
+              <br>
+              <select class="form-select" aria-label="select image mode" onchange="(this.value)">
+                <option selected name="fieldName" ngDefaultControl [(ngModel)]="pullImageMode">Select the mode in which you want to upload the images:</option>
+                <option value="Edge" >Edge</option>
+                <option value="Cloud" >Cloud</option>
+              </select>
+              <br>
+              <button type="button" value="Submit" class="btn btn-primary btn-block" (click)="setData()">Save Settings</button>
+            </div>
+          </div>
+        </div>
+        <br>
+        <button type="button" class="btn btn-primary btn-block" (click)="backToSharePage()">Back</button>
+      </div>
+    </div>
+</div>
+

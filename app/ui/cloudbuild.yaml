@@ -1,0 +1,20 @@
+steps:
+# Build the container image
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['build', '-t', '$_REGISTRY_URL/$PROJECT_ID/$_REGISTRY_REPO/ui:$SHORT_SHA', '-t', '$_REGISTRY_URL/$PROJECT_ID/$_REGISTRY_REPO/ui:latest','.']
+# Push the container image to Container Registry
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['push', '$_REGISTRY_URL/$PROJECT_ID/$_REGISTRY_REPO/ui','--all-tags']
+# Deploy container image to Cloud Run
+- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+  entrypoint: gcloud
+  args: ['run', 'deploy', 'awc-ui', '--image', '$_REGISTRY_URL/$PROJECT_ID/$_REGISTRY_REPO/ui:$SHORT_SHA', '--region', '$_CLOUD_RUN_REGION','--allow-unauthenticated','--port=$_CLOUD_CRUN_PORT','--service-account=$_CLOUD_CRUN_SA','--memory=$_CLOUD_CRUN_MEM','--quiet']
+images:
+- $_REGISTRY_URL/$PROJECT_ID/$_REGISTRY_REPO/ui:$SHORT_SHA
+substitutions:
+  _REGISTRY_URL: us-west4-docker.pkg.dev
+  _REGISTRY_REPO: art-docker-awc
+  _CLOUD_RUN_REGION: us-west4
+  _CLOUD_CRUN_SA: crunui-dev-ops@poc-visual-inspection.iam.gserviceaccount.com  
+  _CLOUD_CRUN_PORT: '80'
+  _CLOUD_CRUN_MEM: 1Gi

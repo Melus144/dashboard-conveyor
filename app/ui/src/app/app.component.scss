@@ -1,0 +1,50 @@
+.logocontainer {
+
+  .wm-logo {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+
+  .gft-logo {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+
+  .gc-logo {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+}
+// Establecer el tamaño y estilos del menú lateral
+.sidebar {
+  height: 100vh; // 100% de la altura de la pantalla
+  width: 80px;   // Ancho del menú lateral
+
+  // Añadir estilos adicionales según tus preferencias
+  background-color: #193365;; // Color de fondo
+  color: #5c59a4;              // Color del texto
+  padding-top: 20px;        // Espaciado superior
+}
+
+// Estilos para los íconos en el menú lateral
+.sidebar-icons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  // Establecer estilos para cada ícono
+  .icon {
+    font-size: 40px;  // Tamaño del ícono
+    margin-bottom: 20px; // Espaciado entre íconos
+    cursor: pointer; // Cambia el cursor al pasar sobre los íconos
+  }
+}
+
+footer {
+  margin-left: 40 px;
+  background-color: #F9F9FA;
+  color: #535353;
+  padding: 15px;
+  text-align: center;
+}
+

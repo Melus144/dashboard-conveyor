@@ -1,0 +1,29 @@
+encoder_settings:
+  - feature: "TriggerSelector"
+    value: "FrameStart"
+  - feature: "TriggerMode"
+    value: "On"
+  - feature: "TriggerSource"
+    value: "Line0"
+
+exposure_settings:
+  - feature: "ExposureAuto"
+    value: "Off"
+  - feature: "ExposureTime"
+    value: "5000.0"
+  - feature: "GainAuto"
+    value: "Off"
+  - feature: "BalanceWhiteAuto"
+    value: "Off"
+
+digital_io:
+  - feature: "LineSelector"
+    value: "Line1"
+  - feature: "LineInverter"
+    value: False
+  - feature: "LineSource"
+    value: "UserOutput0"
+  - feature: "UserOutputSelector"
+    value: "UserOutput0"
+  - feature: "UserOutputValue"
+    value: True
