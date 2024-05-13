@@ -5,8 +5,8 @@ services:
       context: ./py-server
       dockerfile: Dockerfile
     volumes:
-      - /home/gft/Desktop/SourceCode/acmarca_leak_inspection/ui/shared_images:/shared-images
-      - /home/gft/Desktop/SourceCode/acmarca_leak_inspection/ui/:/ui
+      - /home/gft/Desktop/conveyor-belt-demo/app/ui/shared_images:/shared-images
+      - /home/gft/Desktop/conveyor-belt-demo/app/ui:/ui
     environment:
       DIRECTORY_PATH: /shared-images
     ports:
@@ -17,6 +17,6 @@ services:
     build:
       context: .
     volumes:
-      - /home/gft/Desktop/SourceCode/acmarca_leak_inspection/ui/shared_images:/usr/share/nginx/html/assets/images/capture
+      - /home/gft/Desktop/conveyor-belt-demo/app/ui/shared_images:/usr/share/nginx/html/assets/images/capture
     ports:
       - 8079:80

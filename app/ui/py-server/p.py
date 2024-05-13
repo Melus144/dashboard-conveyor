@@ -13,7 +13,6 @@ from vi_gft.src.cameras.usb3camera import USB3Camera
 from vi_gft.src.utils.disk_manager import DiskManager
 import yaml
 import cv2
-import gradio as gr
 import collections
 import os
 import datetime
@@ -51,7 +50,7 @@ class Process:
         self.stop_event = Event()
         self.results = None
         self.index = 0
-        self.cam = USB3Camera(r"C:\Users\kkkk\Desktop\ConveyorBeltDemo\acmarca_leak_inspection\ui\py-server\vi_gft\src\utils\example.yaml", buffer = 50)
+        self.cam = USB3Camera("/home/gft/Desktop/conveyor-belt-demo/app/ui/py-server/vi_gft/src/utils/example.yaml", buffer = 1)
         self.sender = LinkSender()
         self.cam.start()
         self.img_counter = 0
@@ -60,13 +59,8 @@ class Process:
         self.past_buffer = collections.deque(maxlen=self.MAX_CAPACITY_QUEUE)
         self.save_dir = save_dir
         # Creating structur folder for saving images: ok/ nok - bubble, pot, other
-        os.makedirs(self.save_dir + "/ok", exist_ok=True)
-        os.makedirs(self.save_dir + "/nok/bubble", exist_ok=True)
-        os.makedirs(self.save_dir + "/nok/pot", exist_ok=True)
-        os.makedirs(self.save_dir + "/nok/other", exist_ok=True)
-        save_directories = [self.save_dir + "/ok"]
-        self.labels = read_label_file(r"C:\Users\kkkk\Desktop\ConveyorBeltDemo\acmarca_leak_inspection\ui\py-server\label_file.txt")
-        self.interpreter = make_interpreter(r"C:\Users\kkkk\Desktop\ConveyorBeltDemo\model_big_conveyor_edgetpu.tflite")
+        self.labels = read_label_file("/home/gft/Desktop/conveyor-belt-demo/app/ui/py-server/label_file.txt")
+        self.interpreter = make_interpreter("/home/gft/Desktop/conveyor-belt-demo/model_big_conveyor_edgetpu.tflite")
         # Model must be uint8 quantized
         if common.input_details(self.interpreter, 'dtype') != np.uint8:
           raise ValueError('Only support uint8 input type.')
@@ -76,11 +70,11 @@ class Process:
         self.q = queue.Queue(maxsize=100)
 
     def show_frame(self, frame, name, wait=1):
-        frame = cv2.resize(frame, (frame.shape[1]//4, frame.shape[0]//4))
+        #frame = cv2.resize(frame, (frame.shape[1]//2, frame.shape[0]//2))
         if name == "DEFECTS!":
-          frame = cv2.putText(frame, 'NOK', (20, 20), cv2.FONT_HERSHEY_PLAIN, 2, (255, 255, 255), 2)
+          frame = cv2.putText(frame, 'NOK', (100, 300), cv2.FONT_HERSHEY_PLAIN, 20, (255, 255, 255), 20)
         else:
-          frame = cv2.putText(frame, 'OK', (20, 20), cv2.FONT_HERSHEY_PLAIN, 2, (255, 255, 255), 2)
+          frame = cv2.putText(frame, 'OK', (100, 300), cv2.FONT_HERSHEY_PLAIN, 20, (255, 255, 255), 20)
         return frame
     def start(self):
         print("READY")
@@ -98,18 +92,23 @@ class Process:
 
                   if defect:
                       frame = self.show_frame(frame, 'DEFECTS!', 100)
-                      self.set_results(False)
                       self.stop_event.set()  # Set the stop event
+                      img_path = "/home/gft/Desktop/conveyor-belt-demo/app/ui/shared_images/camera2/{}.jpg".format(tsmp)
+                      cv2.imwrite(img_path,frame)
+                      self.sender.send_link('2,{}.jpg'.format(tsmp))
+                      self.set_results(False)
                   else:
                       frame = self.show_frame(frame, 'LINE FEED')
+                      img_path = "/home/gft/Desktop/conveyor-belt-demo/app/ui/shared_images/camera1/{}.jpg".format(tsmp)
+                      cv2.imwrite(img_path,frame)
+                      self.sender.send_link('1,{}.jpg'.format(tsmp))
                       self.set_results(True)
 
-                  cv2.imwrite(r"C:\Users\kkkk\Desktop\ConveyorBeltDemo\acmarca_leak_inspection\ui\shared_images\camera1\{}.jpg".format(tsmp),frame)
-                  self.sender.send_link('1,{}.jpg'.format(tsmp))
+
                   if self.q.full():
                     p = self.q.get()
                     os.remove(p)
-                  self.q.put(r"C:\Users\kkkk\Desktop\ConveyorBeltDemo\acmarca_leak_inspection\ui\shared_images\camera1\{}.jpg".format(tsmp))
+                  self.q.put("/home/gft/Desktop/conveyor-belt-demo/app/ui/shared_images/camera1/{}.jpg".format(tsmp))
 
 
     def wait_for_camera_frame(self):
@@ -170,7 +169,7 @@ class Process:
 
 
 def main():
-    filename = r"C:\Users\kkkk\Desktop\ConveyorBeltDemo\acmarca_leak_inspection\ui\py-server\config.yaml"  # Change this to your YAML file's name
+    filename = "/home/gft/Desktop/conveyor-belt-demo/app/ui/py-server/config.yaml"  # Change this to your YAML file's name
     data = read_yaml(filename)
     global num_frames
     num_frames =  data.get('num_frames', 1)
@@ -179,7 +178,7 @@ def main():
     save_every =  data.get('save_every', 1)
     # Start an instance of Socket.IO
     # Run the web application and set_image loop concurrently
-    process = Process(save_dir=r"C:\Users\kkkk\Desktop\ConveyorBeltDemo\acmarca_leak_inspection\ui\shared_images", )
+    process = Process(save_dir="/home/gft/Desktop/conveyor-belt-demo/app/ui/shared_images/", )
     process.start()
 
 if __name__ == "__main__":

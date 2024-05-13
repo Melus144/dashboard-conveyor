@@ -13,8 +13,8 @@ exposure_settings:
     value: "5000.0"
   - feature: "GainAuto"
     value: "Off"
-  - feature: "BalanceWhiteAuto"
-    value: "Off"
+  # - feature: "BalanceWhiteAuto"
+  #   value: "Off"
 
 digital_io:
   - feature: "LineSelector"
@@ -27,3 +27,9 @@ digital_io:
     value: "UserOutput0"
   - feature: "UserOutputValue"
     value: True
+
+size:
+  - feature: "Width"
+    value: 1920
+  - feature: "Height"
+    value: 1200

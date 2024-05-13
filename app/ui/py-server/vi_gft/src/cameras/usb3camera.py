@@ -21,6 +21,8 @@ class USB3Camera(Camera):
         size_x = MIL.MdigInquire(self.CameraDigitizer, MIL.M_SIZE_X)
         size_y = MIL.MdigInquire(self.CameraDigitizer, MIL.M_SIZE_Y)
 
+        print(size_x, size_y)
+
         # Allocate the grab buffers and clear them.
         MIL.MappControl(MIL.M_DEFAULT, MIL.M_ERROR, MIL.M_PRINT_DISABLE)
         for n in range(0, self.BUFFERING_SIZE_MAX):

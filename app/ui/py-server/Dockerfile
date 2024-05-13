@@ -8,4 +8,4 @@ COPY . .
 
 ENV PYTHONUNBUFFERED=1
 
-CMD [ "python", "process.py" ]
+CMD [ "python", "webapp.py" ]
