@@ -1,0 +1,17 @@
+<footer class="footer bg-light py-3 mt-auto">
+    <div class="container d-flex justify-content-between">
+      <nav>
+        <ul class="nav">
+          <li class="nav-item" *ngFor="let footerItem of footerItems">
+            <a class="nav-link" [routerLink]="[footerItem.path]">
+                <p>{{footerItem.title}}</p>
+            </a>
+        </li>
+        </ul>
+      </nav>
+      <p class="mb-0 copyright pull-right">
+        &copy; {{ test | date: 'yyyy' }} <a href="https://www.lab.gft.com" class="text-reset">GFT</a>
+      </p>
+    </div>
+  </footer>
+  

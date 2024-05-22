@@ -3,15 +3,15 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "ACMARCA - Visualizer": {
+    "ACMARCA-Visualizer": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
           "style": "scss"
         },
-      "@schematics/angular:application": {
-        "strict": true
-        } 
+        "@schematics/angular:application": {
+          "strict": true
+        }
       },
       "root": "",
       "sourceRoot": "src",
@@ -36,14 +36,19 @@
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "node_modules/@fortawesome/fontawesome-free/css/all.min.css",
               "node_modules/bootstrap-icons/font/bootstrap-icons.css",
-              "src/styles.scss"
-            
+              "src/styles.scss",
+              "node_modules/perfect-scrollbar/css/perfect-scrollbar.css",
+              "node_modules/animate.css/animate.min.css",
+              "src/assets/sass/light-bootstrap-dashboard.scss",
+              "src/assets/css/light-bootstrap-dashboard.css",
+              "src/assets/css/demo.css"
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",
+              "node_modules/bootstrap/dist/js/bootstrap.min.js",
+              "node_modules/bootstrap-notify/bootstrap-notify.min.js",
               "node_modules/@popperjs/core/dist/umd/popper.min.js",
-              "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js",
-              "node_modules/bootstrap/dist/js/bootstrap.min.js"
+              "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
             ]
           },
           "configurations": {
@@ -77,10 +82,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "ACMARCA - Visualizer:build:production"
+              "browserTarget": "ACMARCA-Visualizer:build:production"
             },
             "development": {
-              "browserTarget": "ACMARCA - Visualizer:build:development"
+              "browserTarget": "ACMARCA-Visualizer:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -88,7 +93,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "ACMARCA - Visualizer:build"
+            "browserTarget": "ACMARCA-Visualizer:build"
           }
         },
         "test": {
@@ -105,12 +110,23 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles.scss",
+              "node_modules/animate.css/animate.min.css",
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "src/assets/sass/light-bootstrap-dashboard.scss",
+              "src/assets/css/light-bootstrap-dashboard.css",
+              "src/assets/css/demo.css"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/jquery/dist/jquery.min.js",
+              "node_modules/bootstrap/dist/js/bootstrap.min.js"
+            ]
           }
         }
       }
     }
+  },
+  "cli": {
+    "analytics": "d0039e0b-8e33-4413-8326-03149b87dc41"
   }
 }

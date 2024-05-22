@@ -1,0 +1,96 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6">
+                <lbd-chart
+                  [title]="'Coca-Cola Cans Inspection'"
+                  [subtitle]="'Last Session Results'"
+                  [chartType]="cansChartType"
+                  [chartData]="cansChartData"
+                  [legendItems]="cansChartLegendItems"
+                  [withHr]="true"
+                  [footerIconClass]="'fa fa-history'"
+                  [footerText]="'Updated just now'">
+                </lbd-chart>
+            </div>
+            <div class="col-md-6">
+                <lbd-chart
+                  [title]="'Daily Inspections'"
+                  [subtitle]="'Number of Inspected Cans Over Time'"
+                  [chartType]="inspectionChartType"
+                  [chartData]="inspectionChartData"
+                  [chartOptions]="inspectionChartOptions"
+                  [chartResponsive]="inspectionChartResponsive"
+                  [legendItems]="inspectionChartLegendItems"
+                  [withHr]="true"
+                  [footerIconClass]="'fa fa-history'"
+                  [footerText]="'Updated daily'">
+                </lbd-chart>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <lbd-chart
+                  [title]="'Monthly Overview'"
+                  [subtitle]="'OK vs NOT OK Cans'"
+                  [chartType]="monthlyChartType"
+                  [chartData]="monthlyChartData"
+                  [chartOptions]="monthlyChartOptions"
+                  [chartResponsive]="monthlyChartResponsive"
+                  [legendItems]="monthlyChartLegendItems"
+                  [withHr]="true"
+                  [footerText]="'Data for the current month'">
+                </lbd-chart>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="header">
+                        <h4 class="title">Tasks</h4>
+                        <p class="category">Backend development</p>
+                    </div>
+                    <div class="content">
+                        <div class="table-full-width">
+                            <table class="table">
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <div class="checkbox">
+                                                <input id="checkbox1" type="checkbox">
+                                                <label for="checkbox1">
+                                                </label>
+                                            </div>
+                                        </td>
+                                        <td>Integrate real-time data streaming</td>
+                                        <td class="td-actions text-right">
+                                            <button type="button" rel="tooltip" title="Edit Task" class="btn btn-info btn-simple btn-xs">
+                                                <i class="fa fa-edit"></i>
+                                            </button>
+                                            <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-xs">
+                                                <i class="fa fa-times"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                           
+                                        </td>
+                                        <td>Setup notification system for NOT OK cans</td>
+                                        <td class="td-actions text-right">
+                                            <button type="button" rel="tooltip" title="Edit Task" class="btn btn-info btn-simple btn-xs">
+                                                <i class="fa fa-edit"></i>
+                                            </button>
+                                            <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-xs">
+                                                <i class="fa fa-times"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

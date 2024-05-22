@@ -7,6 +7,11 @@ import { Observable } from 'rxjs';
 import { collection, query, where, getDocs } from "firebase/firestore";
 
 
+declare interface TableData {
+  headerRow: string[];
+  dataRows: string[][];
+}
+
 @Component({
   selector: 'app-info-page',
   templateUrl: './info-page.component.html',
@@ -17,6 +22,12 @@ export class InfoPageComponent implements OnInit {
 
   items: any[] = [];
   selectedImage: string = "";
+  results: any[] = [
+    { result: 'OK', id: '123456', timestamp: '2023-05-21 14:30:00' },
+    { result: 'NOT OK', id: '123457', timestamp: '2023-05-21 14:32:00' },
+    { result: 'OK', id: '123458', timestamp: '2023-05-21 14:34:00' }
+  ];
+  public tableData2: TableData = { headerRow: [], dataRows: [] };
 
   constructor(
     private route: ActivatedRoute,
@@ -47,15 +58,17 @@ export class InfoPageComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.route.paramMap.subscribe((params: any) => {
-      this.selectedImage = params.get('image')
+    this.route.paramMap.subscribe((params) => {
+      this.selectedImage = params.get('image') || '';
     });
+    this.tableData2 = {
+      headerRow: [ 'ID', 'Result', 'TimeStamp'],
+      dataRows: [
+          ['1', 'OK', '2024-05-21 14:30:00'],
+          ['2', 'NOT OK', '2024-05-21 14:32:00'],
+          ['3', 'OK', '2024-05-21 14:33:00'],
+          ['4', 'OK', '2024-05-21 14:34:00']
+      ]
+  };
   }
-
-
-
-  backToSharePage() {
-    this.router.navigate(['/share-page']);
-  }
-
 }

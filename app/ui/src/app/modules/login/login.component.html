@@ -1,78 +1,49 @@
-<!-- <form [formGroup]="loginForm">
-
+<div class="main-content">
   <div class="container">
-    <br>
-    <label for="username"><b>Username:</b></label>
-    <div class="input-group">
-      <input class="input-group-text" type="text" placeholder="Enter Username" name="username"
-        (keyup.enter)="onSubmit()" formControlName="username">
-    </div>
-
-    <label for="psw"><b>Password:</b></label>
-    <div class="input-group">
-      <input class="input-group-text" type="password" placeholder="Enter Password" (keyup.enter)="onSubmit()"
-        formControlName="password">
-    </div>
-
-    <br>
-    <button class="btn btn-primary" [disabled]="loginForm.invalid" (click)="onSubmit()">Login</button>
-  </div>
-</form> -->
-<br>
-<div class="card">
-  <div class="card-body">
-    <form [formGroup]="loginForm">
-      <!-- Email input -->
-      <div class="form-outline mb-4">
-        <input class="input-group-text" type="text" placeholder="Enter Username" name="username"
-        (keyup.enter)="onSubmit()" formControlName="username">
-      </div>
-    
-      <!-- Password input -->
-      <div class="form-outline mb-4">
-        <input class="input-group-text" type="password" placeholder="Enter Password" (keyup.enter)="onSubmit()"
-        formControlName="password">
-      </div>
-    
-      <!-- 2 column grid layout for inline styling -->
-      <div class="row mb-4">
-        <div class="col d-flex justify-content-center">
-          <!-- Checkbox -->
-          <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="form2Example31" checked />
-            <label class="form-check-label" for="form2Example31"> Remember me </label>
+    <div class="row justify-content-center">
+      <div class="col-md-4">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="title text-center">Login</h4>
+            <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+              <div class="form-group mb-4">
+                <input type="text" class="form-control" placeholder="Enter Username" formControlName="username">
+              </div>
+              <div class="form-group mb-4">
+                <input type="password" class="form-control" placeholder="Enter Password" formControlName="password">
+              </div>
+              <div class="row mb-4">
+                <div class="col d-flex justify-content-center">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="rememberMe" checked>
+                    <label class="form-check-label" for="rememberMe"> Remember me </label>
+                  </div>
+                </div>
+                <div class="col text-right">
+                  <a href="#!">Forgot password?</a>
+                </div>
+              </div>
+              <button type="submit" class="btn  btn-block" [disabled]="loginForm.invalid">Sign in</button>
+              <div class="text-center mt-4">
+                <p>Not a member? <a href="#!">Register</a></p>
+                <p>or sign up with:</p>
+                <button type="button" class="btn btn-link btn-floating mx-1">
+                  <i class="fab fa-facebook-f"></i>
+                </button>
+                <button type="button" class="btn btn-link btn-floating mx-1">
+                  <i class="fab fa-google"></i>
+                </button>
+                <button type="button" class="btn btn-link btn-floating mx-1">
+                  <i class="fab fa-twitter"></i>
+                </button>
+                <button type="button" class="btn btn-link btn-floating mx-1">
+                  <i class="fab fa-github"></i>
+                </button>
+              </div>
+            </form>
           </div>
         </div>
-    
-        <div class="col">
-          <!-- Simple link -->
-          <a href="#!">Forgot password?</a>
-        </div>
       </div>
-    
-      <!-- Submit button -->
-      <button type="button" class="btn btn-primary btn-block mb-4" [disabled]="loginForm.invalid" (click)="onSubmit()">Sign in</button>
-    
-      <!-- Register buttons -->
-      <div class="text-center">
-        <p>Not a member? <a href="#!">Register</a></p>
-        <p>or sign up with:</p>
-        <button type="button" class="btn btn-link btn-floating mx-1">
-          <i class="fab fa-facebook-f"></i>
-        </button>
-    
-        <button type="button" class="btn btn-link btn-floating mx-1">
-          <i class="fab fa-google"></i>
-        </button>
-    
-        <button type="button" class="btn btn-link btn-floating mx-1">
-          <i class="fab fa-twitter"></i>
-        </button>
-    
-        <button type="button" class="btn btn-link btn-floating mx-1">
-          <i class="fab fa-github"></i>
-        </button>
-      </div>
-    </form>
+    </div>
   </div>
 </div>
