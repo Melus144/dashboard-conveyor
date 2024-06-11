@@ -5,6 +5,7 @@ import { ChatService } from './services/chat.service';
 import { DatePipe, Location, PopStateEvent } from '@angular/common';
 import PerfectScrollbar from 'perfect-scrollbar';
 import { Subscription, filter } from 'rxjs';
+import { SettingsService } from './services/settings.service';
 
 @Component({
   selector: 'app-root',
@@ -26,7 +27,8 @@ export class AppComponent {
     private router: Router,
     private chatService: ChatService,
     private datePipe: DatePipe,
-    public location: Location
+    public location: Location,
+    private settingsService: SettingsService
   ) { }
 
   ngOnInit() {
@@ -42,6 +44,7 @@ export class AppComponent {
       }
       const elemMainPanel = <HTMLElement>document.querySelector('.main-panel');
       const elemSidebar = <HTMLElement>document.querySelector('.sidebar .sidebar-wrapper');
+      this.settingsService.applySettings();
 
       this.location.subscribe((ev:PopStateEvent) => {
           this.lastPoppedUrl = ev.url;

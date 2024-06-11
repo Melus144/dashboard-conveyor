@@ -1,0 +1,10 @@
+{
+  "dependencies": {
+    "@types/bootstrap-notify": "^3.1.38",
+    "jquery": "^3.7.1",
+    "perfect-scrollbar": "^1.5.5"
+  },
+  "devDependencies": {
+    "@types/jquery": "^3.5.30"
+  }
+}

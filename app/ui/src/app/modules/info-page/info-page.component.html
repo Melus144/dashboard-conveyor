@@ -1,41 +1,53 @@
 <div class="container">
   <br>
   <div class="row">
-    <div class="col">
+    <div *ngIf="selectedImage" class="col-md-6">
       <div class="card">
         <div class="card-body">
           <div class="image-2d col">
             <h4 class="text-center">Image Information:</h4>
-            <img class="img-fluid" [src]="selectedImage">
+            <img alt="selectedImage" class="img-fluid" [src]="selectedImage">
             <br>
           </div>
         </div>
       </div>
     </div>
+    <div *ngIf="selectedImage" class="col-md-6">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="text-center">Details</h4>
+          <p><b>Accuracy:</b> 95%</p>
+          <p><b>Object Class:</b> Coca-Cola Can</p>
+          <p><b>Class Probability:</b> 98%</p>
+          <p><b>Description:</b> {{ selectedImage.includes('NOTOK') ? 'Defect detected in the sheet metal part' : 'No defects detected' }}.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
     <div class="col-md-12">
       <div class="card">
-          <div class="header">
-              <h4 class="title">Results</h4>
-              <p class="category">Last Inspections Results</p>
-          </div>
-          <div class="content table-responsive table-full-width">
-                <table class="table table-hover table-striped">
-                      <thead>
-                          <tr>
-                              <th *ngFor="let cell of tableData2.headerRow">{{ cell }}</th>
-                          </tr>
-                      </thead>
-                      <tbody>
-                          <tr *ngFor="let row of tableData2.dataRows">
-                              <td *ngFor="let cell of row">{{cell}}</td>
-                          </tr>
-                      </tbody>
-                </table>
-
-          </div>
+        <div class="header">
+          <h4 class="title">Results</h4>
+          <p class="category">Last Inspections Results</p>
+        </div>
+        <div class="content table-responsive table-full-width">
+          <table class="table table-hover table-striped">
+            <thead>
+              <tr>
+                <th *ngFor="let cell of tableData2.headerRow">{{ cell }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let row of tableData2.dataRows" (click)="toInfoPage(row[3])">
+                <td *ngFor="let cell of row">{{cell}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
-  </div>
-    
+    </div>
   </div>
 </div>
 <br><br><br><br><br><br>

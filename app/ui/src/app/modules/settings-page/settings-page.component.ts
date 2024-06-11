@@ -1,11 +1,13 @@
-import { Component } from '@angular/core';
-import { Firestore, doc, setDoc } from '@angular/fire/firestore';
-import { CheckboxControlValueAccessor } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { SettingsService } from '../../services/settings.service';
 
 interface Settings {
   trainModel: boolean;
   pullImage: string;
+  primaryColor: string;
+  logoUrl: string;
+  backgroundImage: string;
 }
 
 @Component({
@@ -13,49 +15,40 @@ interface Settings {
   templateUrl: './settings-page.component.html',
   styleUrls: ['./settings-page.component.scss']
 })
-export class SettingsPageComponent {
-
-  isActiveForTrain: boolean = true;
-  pullImageMode: string = '';
-
+export class SettingsPageComponent implements OnInit {
+  settings: Settings;
+  availableColors: string[] = ['blue', 'azure', 'green', 'orange', 'red', 'purple'];
+  availableBackgrounds: string[] = ['/assets/images/sidebar-0.jpg', '/assets/images/sidebar-1.jpg'];
+pullImageMode: any;
 
   constructor(
     private router: Router,
-    private firestore: Firestore
-  ) { }
-  async ngOnInit() {
-
+    private settingsService: SettingsService
+  ) {
+    this.settings = this.settingsService.getSettings();
   }
 
-  async setData(): Promise<Settings> {
-    //Add a new document in collection Settings
-    const docRef = doc(this.firestore, "Settings", "trainModel");
-    const pullImages = doc(this.firestore, "Settings", "pullImage");
-    if (this.isActiveForTrain) {
-      await setDoc(docRef, {
-        toTrain: true
-      });
-    } else {
-      await setDoc(docRef, {
-        toTrain: false
-      });
-    }
-    if (this.pullImageMode === "Edge") {
-      console.log(this.pullImageMode, 'tiene que ser edge')
-      await setDoc(pullImages, {
-        pullImageMode: 'Edge'
-      });
-    } else {
-      console.log(this.pullImageMode, 'tiene que ser cloud')
-      await setDoc(pullImages, {
-        pullImageMode: 'Cloud'
-      });
-    }
-    return null!;
+  ngOnInit(): void {}
+
+  onFileChange(event: any): void {
+    const file = event.target.files[0];
+    const reader = new FileReader();
+    reader.onload = (e: any) => {
+      this.settings.logoUrl = e.target.result;
+    };
+    reader.readAsDataURL(file);
   }
 
-  backToSharePage() {
-    this.router.navigate(['/share-page']);
+  onBackgroundChange(event: any): void {
+    const file = event.target.files[0];
+    const reader = new FileReader();
+    reader.onload = (e: any) => {
+      this.settings.backgroundImage = e.target.result;
+    };
+    reader.readAsDataURL(file);
   }
 
+  saveSettings(): void {
+    this.settingsService.updateSettings(this.settings);
+  }
 }

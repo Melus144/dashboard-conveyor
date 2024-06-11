@@ -5,12 +5,7 @@ import { Firestore } from '@angular/fire/firestore';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { collection, query, where, getDocs } from "firebase/firestore";
-
-
-declare interface TableData {
-  headerRow: string[];
-  dataRows: string[][];
-}
+import { DataService, TableData } from '../../services/data.service';
 
 @Component({
   selector: 'app-info-page',
@@ -19,20 +14,15 @@ declare interface TableData {
 })
 
 export class InfoPageComponent implements OnInit {
-
-  items: any[] = [];
   selectedImage: string = "";
-  results: any[] = [
-    { result: 'OK', id: '123456', timestamp: '2023-05-21 14:30:00' },
-    { result: 'NOT OK', id: '123457', timestamp: '2023-05-21 14:32:00' },
-    { result: 'OK', id: '123458', timestamp: '2023-05-21 14:34:00' }
-  ];
+  selectedResult: string = "";
   public tableData2: TableData = { headerRow: [], dataRows: [] };
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private firestore: Firestore,
+    private dataService: DataService
   ) {
 
     // // Función para obtener los datos de Firestore
@@ -61,14 +51,22 @@ export class InfoPageComponent implements OnInit {
     this.route.paramMap.subscribe((params) => {
       this.selectedImage = params.get('image') || '';
     });
-    this.tableData2 = {
-      headerRow: [ 'ID', 'Result', 'TimeStamp'],
-      dataRows: [
-          ['1', 'OK', '2024-05-21 14:30:00'],
-          ['2', 'NOT OK', '2024-05-21 14:32:00'],
-          ['3', 'OK', '2024-05-21 14:33:00'],
-          ['4', 'OK', '2024-05-21 14:34:00']
-      ]
-  };
+    this.dataService.getTableData().subscribe(data => {
+      this.tableData2 = data;
+    });
   }
+
+  toInfoPage(selectedImage: string): void {
+    this.router.navigate(['/info-page', { image: selectedImage }]);
+    this.updateDetails(selectedImage);
+  }
+
+  updateDetails(imagePath: string): void {
+    if (imagePath.includes('NOTOK')) {
+      this.selectedResult = 'NOT OK';
+    } else {
+      this.selectedResult = 'OK';
+    }
+  }
+
 }

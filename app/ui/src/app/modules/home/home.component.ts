@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LegendItem, ChartType } from '../lbd/lbd-chart/lbd-chart.component';
+import { DataService } from '../../services/data.service';
+import { combineLatest } from 'rxjs';
 import * as Chartist from 'chartist';
 
 @Component({
@@ -24,19 +26,25 @@ export class HomeComponent implements OnInit {
     public monthlyChartResponsive: any[] = [];
     public monthlyChartLegendItems: LegendItem[] = [];
 
-    constructor() { }
+    constructor(private dataService: DataService) { }
 
     ngOnInit() {
         this.cansChartType = ChartType.Pie;
-        this.cansChartData = {
-            labels: ['70%', '30%'],
-            series: [70, 30] 
-        };
         this.cansChartLegendItems = [
             { title: 'OK', imageClass: 'fa fa-circle text-info' },
             { title: 'NOT OK', imageClass: 'fa fa-circle text-danger' }
         ];
 
+        // Use combineLatest to combine the two observables and update the chart data whenever either value changes
+        combineLatest([this.dataService.getOkCount(), this.dataService.getNotOkCount()]).subscribe(([okCount, notOkCount]) => {
+            this.updateCansChartData(okCount, notOkCount);
+        });
+
+        this.setStaticChartData();
+    }
+
+    private setStaticChartData(): void {
+        // Static data for inspection and monthly charts (as you provided)
         this.inspectionChartType = ChartType.Line;
         this.inspectionChartData = {
             labels: ['9:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00'],
@@ -101,5 +109,19 @@ export class HomeComponent implements OnInit {
             { title: 'OK', imageClass: 'fa fa-circle text-info' },
             { title: 'NOT OK', imageClass: 'fa fa-circle text-danger' }
         ];
+    }
+
+    private updateCansChartData(okCount: number, notOkCount: number): void {
+        if (okCount > 0 || notOkCount > 0) {
+            this.cansChartData = {
+                labels: [`${okCount}`, `${notOkCount}`],
+                series: [okCount, notOkCount]
+            };
+        } else {
+            this.cansChartData = {
+                labels: ['70', '30'],
+                series: [70, 30] 
+            };
+        }
     }
 }

@@ -2273,7 +2273,6 @@ input:focus {
 .ct-label {
   fill: rgba(0, 0, 0, 0.4);
   color: rgba(0, 0, 0, 0.4);
-  font-size: 1.3rem;
   line-height: 1;
 }
 
