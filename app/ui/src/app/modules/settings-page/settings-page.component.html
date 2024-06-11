@@ -32,11 +32,42 @@
               <input type="file" class="form-control-file" id="logo" (change)="onFileChange($event)">
             </div>
             <div class="form-group">
+              <label for="logoType">Logo Type:</label>
+              <select class="form-control" id="logoType" [(ngModel)]="logoType" (change)="onLogoTypeChange()">
+                <option value="square">Square</option>
+                <option value="rectangular">Rectangular</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="logoWidth">Logo Width (px):</label>
+              <input type="number" class="form-control" id="logoWidth" [(ngModel)]="settings.logoWidth">
+            </div>
+            <div class="form-group">
+              <label for="logoHeight">Logo Height (px):</label>
+              <input type="number" class="form-control" id="logoHeight" [(ngModel)]="settings.logoHeight">
+            </div>
+            <div class="form-group">
+              <label for="logoPaddingVertical">Logo Vertical Space:</label>
+              <input type="text" class="form-control" id="logoPaddingVertical" [(ngModel)]="settings.logoPaddingVertical">
+            </div>
+            <div class="form-group">
+              <label for="logoPaddingHorizontal">Logo Horizontal Space:</label>
+              <input type="text" class="form-control" id="logoPaddingHorizontal" [(ngModel)]="settings.logoPaddingHorizontal">
+            </div>
+            <div class="form-group">
               <label for="backgroundImage">Background Image:</label>
               <select class="form-control" id="backgroundImage" [(ngModel)]="settings.backgroundImage">
                 <option *ngFor="let bg of availableBackgrounds" [value]="bg">{{ bg }}</option>
               </select>
               <input type="file" class="form-control-file" (change)="onBackgroundChange($event)">
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="showModelView" [(ngModel)]="settings.showModelView">
+              <label class="form-check-label" for="showModelView">Show Model View</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="darkMode" [(ngModel)]="settings.darkMode">
+              <label class="form-check-label" for="darkMode">Dark Mode</label>
             </div>
           </div>
           <br>

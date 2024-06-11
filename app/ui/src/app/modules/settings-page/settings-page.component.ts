@@ -8,6 +8,12 @@ interface Settings {
   primaryColor: string;
   logoUrl: string;
   backgroundImage: string;
+  logoPaddingVertical: string;
+  logoPaddingHorizontal: string;
+  logoWidth: number;
+  logoHeight: number;
+  showModelView: boolean;
+  darkMode: boolean;
 }
 
 @Component({
@@ -17,9 +23,9 @@ interface Settings {
 })
 export class SettingsPageComponent implements OnInit {
   settings: Settings;
-  availableColors: string[] = ['blue', 'azure', 'green', 'orange', 'red', 'purple'];
+  availableColors: string[] = ['blue', 'azure', 'green', 'orange', 'red', 'purple', 'black'];
   availableBackgrounds: string[] = ['/assets/images/sidebar-0.jpg', '/assets/images/sidebar-1.jpg'];
-pullImageMode: any;
+  logoType: string = 'square';
 
   constructor(
     private router: Router,
@@ -46,6 +52,20 @@ pullImageMode: any;
       this.settings.backgroundImage = e.target.result;
     };
     reader.readAsDataURL(file);
+  }
+
+  onLogoTypeChange(): void {
+    if (this.logoType === 'rectangular') {
+      this.settings.logoWidth = 200;
+      this.settings.logoHeight = 40;
+      this.settings.logoPaddingVertical = '10px';
+      this.settings.logoPaddingHorizontal = '15px';
+    } else {
+      this.settings.logoWidth = 100;
+      this.settings.logoHeight = 100;
+      this.settings.logoPaddingVertical = '20px';
+      this.settings.logoPaddingHorizontal = '0px';
+    }
   }
 
   saveSettings(): void {

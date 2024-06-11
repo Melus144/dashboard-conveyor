@@ -78,6 +78,23 @@
 
 }
 
+.navbar-dark {
+    background-color: #343a40;
+  }
+  
+  .navbar-light {
+    background-color: #f8f9fa;
+  }
+
+  .bg-dark {
+    background-color: #343a40 !important;
+  }
+
+  .bg-light {
+    background-color: #f8f9fa !important;
+  }
+  
+
 .navbar-nav > li > .dropdown-menu{
     border-radius: $border-radius-extreme;
     margin-top: -5px;
