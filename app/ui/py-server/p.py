@@ -34,6 +34,7 @@ class LinkSender:
 
   def send_link(self, link):
     try:
+      print(f"Sending Link: {link}")
       self.socket.sendall(link.encode())
       # self.socket.shutdown(socket.SHUT_WR)  # Shutdown write side to indicate end of data
       response = self.socket.recv(1024)
@@ -93,22 +94,21 @@ class Process:
                   if defect:
                       frame = self.show_frame(frame, 'DEFECTS!', 100)
                       self.stop_event.set()  # Set the stop event
-                      img_path = "/home/gft/Desktop/conveyor-belt-demo/app/ui/shared_images/camera2/{}.jpg".format(tsmp)
+                      img_path = "/home/gft/Desktop/conveyor-belt-demo/app/ui/src/assets/images/capture/camera2/{}.jpg".format(tsmp)
                       cv2.imwrite(img_path,frame)
                       self.sender.send_link('2,{}.jpg'.format(tsmp))
                       self.set_results(False)
                   else:
                       frame = self.show_frame(frame, 'LINE FEED')
-                      img_path = "/home/gft/Desktop/conveyor-belt-demo/app/ui/shared_images/camera1/{}.jpg".format(tsmp)
+                      img_path = "/home/gft/Desktop/conveyor-belt-demo/app/ui/src/assets/images/capture/camera1/{}.jpg".format(tsmp)
                       cv2.imwrite(img_path,frame)
                       self.sender.send_link('1,{}.jpg'.format(tsmp))
                       self.set_results(True)
 
-
                   if self.q.full():
                     p = self.q.get()
                     os.remove(p)
-                  self.q.put("/home/gft/Desktop/conveyor-belt-demo/app/ui/shared_images/camera1/{}.jpg".format(tsmp))
+                  self.q.put("/home/gft/Desktop/conveyor-belt-demo/app/ui/src/assets/images/capture/camera1/{}.jpg".format(tsmp))
 
 
     def wait_for_camera_frame(self):
@@ -178,7 +178,7 @@ def main():
     save_every =  data.get('save_every', 1)
     # Start an instance of Socket.IO
     # Run the web application and set_image loop concurrently
-    process = Process(save_dir="/home/gft/Desktop/conveyor-belt-demo/app/ui/shared_images/", )
+    process = Process(save_dir="/home/gft/Desktop/conveyor-belt-demo/app/ui/src/assets/images/capture/", )
     process.start()
 
 if __name__ == "__main__":

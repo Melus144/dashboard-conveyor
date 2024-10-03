@@ -14,10 +14,23 @@ export class ChatService {
   public image4$: BehaviorSubject<string> = new BehaviorSubject('');
   public image5$: BehaviorSubject<string> = new BehaviorSubject('');
 
+
   constructor() {
+    this.socket = io('http://localhost:3000')
+    this.listenForImages();
   }
 
-  socket = io('http://localhost:3000');
+  private socket: any;
+
+  public listenForImages(): void {
+    this.socket.on('image1', (imageUrl: string) => {
+      this.image1$.next(imageUrl);
+    });
+    this.socket.on('image2', (imageUrl: string) => {
+      this.image2$.next(imageUrl);
+    });
+  }
+
   // signalSocket = io('http://localhost:3001');
 
   public sendImage1(image1:any) {
@@ -25,11 +38,13 @@ export class ChatService {
   }
 
   public getNewImage1 = () => {
+    return this.image1$.asObservable();
+    /*    
     this.socket.on('image1', (image1: string) =>{
       this.image1$.next(image1);
     });
+    */
 
-    return this.image1$.asObservable();
   };
 
   public sendImage2(image2:any) {
@@ -37,9 +52,9 @@ export class ChatService {
   }
 
   public getNewImage2 = () => {
-    this.socket.on('image2', (image2: string) =>{
+    /*this.socket.on('image2', (image2: string) =>{
       this.image2$.next(image2);
-    });
+    });*/
 
     return this.image2$.asObservable();
   };

@@ -25,7 +25,7 @@ export class SettingsPageComponent implements OnInit {
   settings: Settings;
   availableColors: string[] = ['blue', 'azure', 'green', 'orange', 'red', 'purple', 'black'];
   availableBackgrounds: string[] = ['/assets/images/sidebar-0.jpg', '/assets/images/sidebar-1.jpg'];
-  logoType: string = 'square';
+  logoType: string = 'rectangular';
 
   constructor(
     private router: Router,

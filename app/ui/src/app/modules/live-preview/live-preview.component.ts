@@ -38,8 +38,10 @@ export class LivePreviewComponent implements OnInit {
     this.chatService.getNewImage1().subscribe((image: string) => {
       if (image != '') {
         this.imageList.push(image);
-        this.latestImage = image;
+        //this.latestOkImage = '/app/ui/shared_images/camera1/'+image;
         this.latestOkImage = image;
+        this.latestImage = this.latestOkImage;
+        console.log(this.latestOkImage)
         this.okCount++;
         const timestamp = new Date().toLocaleString();
         const newEntry = [this.imageList.length.toString(), 'OK', timestamp, image];
@@ -50,8 +52,10 @@ export class LivePreviewComponent implements OnInit {
     this.chatService.getNewImage2().subscribe((image: string) => {
       if (image != '') {
         this.imageList.push(image);
-        this.latestImage = image;
+        //this.latestNotOkImage = 'app/ui/shared_images/camera2/'+image;
         this.latestNotOkImage = image;
+        this.latestImage = this.latestNotOkImage;
+        console.log(this.latestNotOkImage)
         this.notOkCount++;
         const timestamp = new Date().toLocaleString();
         const newEntry = [this.imageList.length.toString(), 'NOT OK', timestamp, image];
